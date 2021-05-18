@@ -1,0 +1,228 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,calc}
+
+\newcommand\score[2]{
+
+\pgfmathsetmacro\pgfxa{#1+1}
+
+%----------Rating Marking Star(dot)----------
+\tikzstyle{scorestars}=[star, star points=5, star point ratio=2.25, draw, inner sep=0.15em,anchor=outer point 3]
+
+% comment out above code and uncomment below to change the rating marker to dot.%
+
+% \tikzstyle{scorestars}=[circle, draw, inner sep=0.15em,anchor=west]
+
+
+\begin{tikzpicture}[baseline]
+  \foreach \i in {1,...,#2} {
+    \pgfmathparse{(\i<=#1?"black!100":"lightgray")}
+    \edef\starcolor{\pgfmathresult}
+    \draw (\i*1em,0) node[name=star\i,scorestars,fill=\starcolor]  {};
+   }
+  \pgfmathparse{(#1>int(#1)?int(#1+1):0}
+  \let\partstar=\pgfmathresult
+  \ifnum\partstar>0
+    \pgfmathsetmacro\starpart{#1-(int(#1))}
+    \path [clip] ($(star\partstar.outer point 3)!(star\partstar.outer  point  2)!(star\partstar.outer point 4)$) rectangle 
+    ($(star\partstar.outer point 2 |- star\partstar.outer point   1)!\starpart!(star\partstar.outer point 1 -| star\partstar.outer point 5)$);
+    \fill (\partstar*1em,0) node[scorestars,fill=black!100]  {};
+  \fi,
+
+\end{tikzpicture}
+}
+%---------------------------------------------
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \scshape FirstName LastName} \\ \vspace{1pt}
+    % 123 Street Name, Town, State 12345 \\ \vspace{1pt}
+    \small \raisebox{-0.1\height}\faPhone\ \underline{+65 88228206} ~ \href{mailto:x@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{@gmail.com}} ~ 
+    \href{https://linkedin.com/in//}{\raisebox{-0.2\height}\faLinkedin\ \underline{linkedin.com/in/}}  ~
+    \href{https://github.com/}{\raisebox{-0.2\height}\faGithub\ \underline{github.com/}}
+    % \vspace{-8pt}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Educations}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University One}{MMM. YYYY -- MMM. YYYY}
+      {Master of Science in Mathematics}{Country,City}
+    \resumeSubheading
+      {University Two }{MMM. YYYY -- MMM. YYYY}
+      {Bachelor of Science in Mathematics}{Country,City}
+  \resumeSubHeadingListEnd
+
+
+%------CORE SKILLS-------
+\section{Core Skills}
+    %\resumeSubHeadingListStart
+        \begin{multicols}{4}
+            \textbf{Mathematica}\hspace{-1mm}\small{\score{5}{5}}\\[12pt]
+            \textbf{Python}\hspace{-1mm}\small{\score{4}{5}}\\
+            \textbf{R}\hspace{-1mm}\small{\score{4}{5}}\\[12pt]
+            \textbf{Matlab}\hspace{-1mm}\small{\score{4}{5}}\\
+            \textbf{LaTex}\hspace{-1mm}\small{\score{5}{5}}\\[12pt]
+            \textbf{Tableau}\hspace{-1mm}\small{\score{5}{5}}\\
+            \textbf{SQL}\hspace{-1mm}\small{\score{4}{5}}\\[12pt]
+            \textbf{C++}\hspace{-1mm}\small{\score{4}{5}}
+        \end{multicols}
+        % \vspace*{1\multicolsep}
+
+
+%------OBJECTIVES-------
+\section{Objectives}
+Committed individual adept in efficiently utilizing available resources in completing assigned tasks. Seeking an entry-level position as a fresh graduate of Job Position, providing a high end Job Description duty for the company.
+
+
+%-----------EXPERIENCE-----------
+\section{Relevant Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Company Pte Ltd}{MMM YYYY -- MMM YYYY}
+      {Job Title}{Country, City}
+      \resumeItemListStart
+        \resumeItem{Your contribute to the company list 1.}
+        \resumeItem{Your contribute to the company list 2.}
+        \resumeItem{Your contribute to the company list 3.}
+
+      \resumeItemListEnd
+
+
+  \resumeSubHeadingListEnd
+\vspace{-8pt}
+
+
+%-----------Professional SKILLS-----------
+\section{Professional Certificate}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Data Visualization}{: Tableau Desktop Certified Associate} \\
+    
+    }}
+ \end{itemize}
+ \vspace{-8pt}
+
+
+%-----------Extracurricular---------------
+\section{Extracurricular}
+\begin{itemize}
+\item{CCA1: \newline Project Euler \newline
+Projects\newline 		
+Other Event\newline
+}
+\item{CCA2: \newline 
+Leisure Interests\newline}
+\end{itemize}
+\end{document}
